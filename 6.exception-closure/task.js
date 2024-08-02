@@ -8,16 +8,15 @@
 function validateCount(number) {
     try {
         return parseCount(number);
-    }
-    catch (error) {
+    } catch (error) {
         return error;
     }
 }
 
 class Triangle {
-    constructor(triangleA, triangleB, triangleC){
-        if ((triangleA + triangleB < triangleC) || (triangleC + triangleB < triangleA)
-            || (triangleA + triangleC < triangleB)) {
+    constructor(triangleA, triangleB, triangleC) {
+        if ((triangleA + triangleB < triangleC) || (triangleC + triangleB < triangleA) ||
+            (triangleA + triangleC < triangleB)) {
             throw new Error("Треугольник с такими сторонами не существует")
         }
 
@@ -38,15 +37,15 @@ class Triangle {
     }
 }
 
-function getTriangle(triangleA, triangleB, triangleC){
+function getTriangle(triangleA, triangleB, triangleC) {
     try {
         return new Triangle(triangleA, triangleB, triangleC);
     } catch (error) {
         return {
-            get area () {
+            get area() {
                 return 'Ошибка! Треугольник не существует'
             },
-            get perimeter () {
+            get perimeter() {
                 return 'Ошибка! Треугольник не существует'
             }
         }
