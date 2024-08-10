@@ -11,16 +11,14 @@ class AlarmClock {
 
         if (this.alarmCollection.length > 0 &&
             this.alarmCollection.find(alarm => alarm['time'] === time)) {
-            console.warn('Уже присутствует звонок на это же время')
+            console.warn('Уже присутствует звонок на это же время');
         }
 
-        this.alarmCollection.push(
-            {
-                time: time,
-                callback: callback,
-                canCall: true
-            }
-        );
+        this.alarmCollection.push({
+            time: time,
+            callback: callback,
+            canCall: true
+        });
     }
 
     removeClock(time) {
@@ -29,7 +27,7 @@ class AlarmClock {
 
     getCurrentFormattedTime() {
         let now = new Date();
-        return `${now.getHours()}:${now.getMinutes()}`;
+        return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     }
 
     start() {
@@ -38,10 +36,12 @@ class AlarmClock {
         }
 
         this.intervalId = setInterval(() => {
-            this.alarmCollection.forEach(alarm => {if (alarm.time === this.getCurrentFormattedTime() && alarm.canCall) {
-                alarm.canCall = false;
-                alarm.callback();
-            }}, 1000)
+            this.alarmCollection.forEach(alarm => {
+                if (alarm.time === this.getCurrentFormattedTime() && alarm.canCall) {
+                    alarm.canCall = false;
+                    alarm.callback();
+                }
+            }, 1000);
         })
     }
 
@@ -57,8 +57,7 @@ class AlarmClock {
     }
 
     clearAlarms() {
-        this.stop()
+        this.stop();
         this.alarmCollection = [];
     }
 }
-
