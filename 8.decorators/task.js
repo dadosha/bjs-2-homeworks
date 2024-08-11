@@ -13,7 +13,9 @@ function cachingDecoratorNew(func) {
         }
 
         const result = func(...args);
-        cache_list.push({[hash]: result});
+        cache_list.push({
+            [hash]: result
+        });
         console.log(cache_list);
         return "Вычисляем: " + result;
     }
