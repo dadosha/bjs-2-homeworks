@@ -2,7 +2,7 @@
 function cachingDecoratorNew(func) {
     let cache_list = [];
 
-    return (...args) => {
+    function wrapper(...args) {
         const hash = md5([...args])
         if (cache_list.find(cache => cache.hasOwnProperty(hash))) {
             return "Из кеша: " + cache_list.find(cache => cache.hasOwnProperty(hash))[hash]
@@ -13,33 +13,37 @@ function cachingDecoratorNew(func) {
         }
 
         const result = func(...args);
-        cache_list.push({[hash]: result});
+        cache_list.push({
+            [hash]: result
+        });
         console.log(cache_list);
         return "Вычисляем: " + result;
     }
+
+    return wrapper;
 }
 
 //Задача № 2
 function debounceDecoratorNew(func, delay) {
     let timeoutId = null;
-    timeoutIdle.count = 0;
-    timeoutIdle.allCount = 0;
+    wrapper.count = 0;
+    wrapper.allCount = 0;
 
-    function timeoutIdle(...args) {
-        timeoutIdle.allCount++;
+    function wrapper(...args) {
+        wrapper.allCount++;
         if (timeoutId === null) {
             func(...args);
-            timeoutIdle.count++;
+            wrapper.count++;
         }
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
 
         timeoutId = setTimeout(() => {
-            timeoutIdle.count++;
+            wrapper.count++;
             func(...args);
         }, delay);
     }
 
-    return timeoutIdle;
+    return wrapper;
 }
